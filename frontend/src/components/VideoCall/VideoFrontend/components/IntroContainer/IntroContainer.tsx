@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     background: 'rgb(40, 42, 43)',
-    height: '100%',
+    minHeight: '100vh',
   },
   container: {
     position: 'relative',
