@@ -1,13 +1,15 @@
 import React from 'react';
 
 export default  function Navbar() {
-  const { user, username } = {};
+  const user = true;
+  const username = true;
 
   return (
-    <nav className={'navbar'}>
+
+    <nav>
       <ul>
         <li>
-
+          <img src='../../public/nav_logo.png' alt='logo' />
         </li>
 
         {username && (
@@ -21,7 +23,7 @@ export default  function Navbar() {
         {!username && (
           <>
             <li>
-              <button>
+              <button type='button'>
                 Signin
               </button>
             </li>

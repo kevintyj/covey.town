@@ -35,6 +35,7 @@ import PlayerMovementContext, { PlayerMovementCallback } from './contexts/Player
 import PlayersInTownContext from './contexts/PlayersInTownContext';
 import VideoContext from './contexts/VideoContext';
 import { CoveyAppState } from './CoveyTypes';
+import Navbar from './components/Navbar';
 
 export const MOVEMENT_UPDATE_DELAY_MS = 0;
 export const CALCULATE_NEARBY_PLAYERS_MOVING_DELAY_MS = 300;
@@ -142,7 +143,7 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
       assert(video);
       const townName = video.townFriendlyName;
       assert(townName);
-    
+
       const socket = io(url, { auth: { token: sessionToken, coveyTownID: video.coveyTownID } });
       socket.on('disconnect', () => {
         dispatchAppUpdate({ action: 'disconnect' });
@@ -150,7 +151,7 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
       let lastMovement = 0;
       let lastRecalculateNearbyPlayers = 0;
       let currentLocation :UserLocation = {moving: false, rotation: 'front', x: 0, y: 0};
-    
+
       let localPlayers = initData.currentPlayers.map((sp) => Player.fromServerPlayer(sp));
       let localConversationAreas : ConversationArea[] = []; // TODO once HW2 done: initData.conversationAreas.map((sa) => ConversationArea.fromServerConversationArea(sa));
       let localNearbyPlayers :Player[] = [];
@@ -258,7 +259,12 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
 
   const page = useMemo(() => {
     if (!appState.sessionToken) {
-      return <Login doLogin={setupGameController} />;
+      return (
+        <>
+          <Navbar />
+          <Login doLogin={setupGameController} />
+        </>
+      );
     }
     if (!videoInstance) {
       return <div>Loading...</div>;
